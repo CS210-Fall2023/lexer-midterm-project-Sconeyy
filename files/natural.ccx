@@ -1,0 +1,51 @@
+module natural is
+
+    /*
+     * Here we define that natural is actually just an
+     * unconstrained subtype of type ccx_native_unsigned.
+     */
+    subtype natural is ccx_native_unsigned;
+    
+    function "+"(lhs, rhs: natural) return natural is
+    begin
+        return (lhs.val + rhs.val);
+    end "+";
+
+    function "-"(lhs, rhs: natural) return natural is
+    begin
+        return (lhs.val - rhs.val);
+    end "-";
+
+    function "-"(x: natural) return natural is
+    begin
+        return (-x.val);
+    end "-";
+
+    function "*"(lhs, rhs: natural) return natural is
+    begin
+        return (lhs.val * rhs.val);
+    end "*";
+
+    function "/"(lhs, rhs: natural) return natural is
+    begin
+        if (rhs.val = 0) then
+            /*
+             * Raise an exception... won't return from this.
+             */
+            rtl.raise_exception(E_DIVBYZERO);
+        end if;
+        return (lhs.val / rhs.val);
+    end "/";
+
+    function "mod"(lhs, rhs: natural) return natural is
+    begin
+        if (rhs.val = 0) then
+            /*
+             * Raise an exception... won't return from this.
+             */
+            rtl.raise_exception(E_DIVBYZERO);
+        end if;
+        return (lhs.val mod rhs.val);
+    end "mod";
+
+end natural;
